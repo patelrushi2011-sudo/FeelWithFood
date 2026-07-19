@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | Feel With Food</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-primary);
+        }
+        .welcome-card {
+            max-width: 600px;
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            background: var(--bg-card);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-glass);
+            animation: fadeIn 1s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-card glass-card">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+            <h1 style="margin-bottom: 1rem;">Welcome to Feel With Food!</h1>
+            <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 1.1rem;">
+                Your account has been successfully created. You are now ready to track your meals, monitor your workouts, and crush your fitness goals!
+            </p>
+            <a href="/dashboard.html" class="btn btn-primary btn-lg" style="width: 100%; display: block;">Let's Get Started 🚀</a>
+        </div>
+    </div>
+</body>
+</html>

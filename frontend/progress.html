@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress | Feel With Food</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <a href="/index.html" class="sidebar-logo" style="text-decoration: none;">
+                <div class="logo-icon">🔥</div>
+                <span>Feel With Food</span>
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/food" class="nav-item">
+                    <span class="nav-icon">🥗</span>
+                    <span>Food Logger</span>
+                </a>
+                <a href="/exercise" class="nav-item">
+                    <span class="nav-icon">🏃‍♂️</span>
+                    <span>Exercise Tracker</span>
+                </a>
+                <a href="/progress" class="nav-item active">
+                    <span class="nav-icon">📈</span>
+                    <span>Progress</span>
+                </a>
+                <a href="/profile" class="nav-item">
+                    <span class="nav-icon">👤</span>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-card" onclick="window.location.href='/profile'">
+                    <div class="user-avatar" id="sidebar-avatar">U</div>
+                    <div class="user-info">
+                        <div class="user-name" id="sidebar-name">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+
+            <header class="page-header">
+                <div>
+                    <h1>Your Progress</h1>
+                    <p class="header-date">Analytics, charts, and achievements</p>
+                </div>
+            </header>
+
+            <!-- Overall Stats -->
+            <div class="stats-grid">
+                <div class="stat-card glass-card">
+                    <div class="stat-icon text-cyan">🗓️</div>
+                    <div class="stat-value" id="stat-days">0</div>
+                    <div class="stat-label">Total Days Logged</div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-icon text-lime">🥗</div>
+                    <div class="stat-value" id="stat-meals">0</div>
+                    <div class="stat-label">Meals Tracked</div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-icon text-magenta">🏃</div>
+                    <div class="stat-value" id="stat-workouts">0</div>
+                    <div class="stat-label">Workouts Completed</div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-icon text-amber">🔥</div>
+                    <div class="stat-value" id="stat-burn">0</div>
+                    <div class="stat-label">Total Kcal Burned</div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                
+                <!-- Streak Widget -->
+                <div class="glass-card streak-section">
+                    <div class="streak-fire">🔥</div>
+                    <div class="streak-number" id="streak-count">0</div>
+                    <div class="streak-label">Day Logging Streak!</div>
+                    <p class="text-muted mt-2" style="font-size: 0.85rem;">Keep it up! Consistency is the key to reaching your goals.</p>
+                </div>
+
+                <!-- BMI & Weight Widget -->
+                <div class="glass-card bmi-section">
+                    <h3 class="mb-3 text-left" style="font-size: 1rem;">Weight & BMI</h3>
+                    
+                    <div class="d-flex justify-between align-center mb-4">
+                        <div>
+                            <div class="text-muted" style="font-size: 0.85rem;">Current Weight</div>
+                            <div style="font-size: 1.8rem; font-weight: 800;" class="text-lime"><span id="current-weight">0</span> <span style="font-size: 1rem;">kg</span></div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">
+                                Change: <span id="weight-change">0</span> kg
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="text-muted" style="font-size: 0.85rem;">Current BMI</div>
+                            <div class="bmi-value" id="bmi-val">0.0</div>
+                            <div class="bmi-category text-cyan" id="bmi-cat">Calculating...</div>
+                        </div>
+                    </div>
+
+                    <div class="bmi-scale">
+                        <div class="bmi-indicator" id="bmi-indicator" style="left: 50%;"></div>
+                    </div>
+                    <div class="bmi-labels">
+                        <span>Under</span>
+                        <span>Normal</span>
+                        <span>Over</span>
+                        <span>Obese</span>
+                    </div>
+
+                    <div style="margin-top: 32px; border-top: 1px solid var(--border-glass); padding-top: 24px;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 12px; text-align: left;">Log Today's Weight</h4>
+                        <form id="weight-form" class="weight-form">
+                            <input type="number" id="weight-input" class="form-input" placeholder="e.g. 70.5" step="0.1" required>
+                            <button type="submit" class="btn btn-primary" id="save-weight-btn">Log Weight</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Weight History Chart -->
+                <div class="glass-card full-width chart-container">
+                    <h3>Weight Journey</h3>
+                    <canvas id="weightChart"></canvas>
+                </div>
+
+                <!-- Calorie Trend Chart -->
+                <div class="glass-card full-width chart-container">
+                    <div class="d-flex justify-between align-center mb-3">
+                        <h3 class="mb-0">Calorie History</h3>
+                        <select id="calorie-days" class="form-select" style="width: auto; padding: 6px 12px;">
+                            <option value="7">Last 7 Days</option>
+                            <option value="14">Last 14 Days</option>
+                            <option value="30">Last 30 Days</option>
+                        </select>
+                    </div>
+                    <canvas id="calorieChart"></canvas>
+                </div>
+
+            </div>
+        </main>
+        
+        <div class="mobile-overlay" id="mobile-overlay"></div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/progress.js"></script>
+</body>
+</html>

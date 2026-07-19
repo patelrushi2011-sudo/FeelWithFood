@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Tracker | Feel With Food</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <a href="/index.html" class="sidebar-logo" style="text-decoration: none;">
+                <div class="logo-icon">🔥</div>
+                <span>Feel With Food</span>
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/food" class="nav-item">
+                    <span class="nav-icon">🥗</span>
+                    <span>Food Logger</span>
+                </a>
+                <a href="/exercise" class="nav-item active">
+                    <span class="nav-icon">🏃‍♂️</span>
+                    <span>Exercise Tracker</span>
+                </a>
+                <a href="/progress" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span>Progress</span>
+                </a>
+                <a href="/profile" class="nav-item">
+                    <span class="nav-icon">👤</span>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-card" onclick="window.location.href='/profile'">
+                    <div class="user-avatar" id="sidebar-avatar">U</div>
+                    <div class="user-info">
+                        <div class="user-name" id="sidebar-name">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+
+            <header class="page-header">
+                <div>
+                    <h1>Exercise Tracker</h1>
+                    <p class="header-date">Log your workouts and activities</p>
+                </div>
+                <div class="header-actions">
+                    <input type="date" id="date-picker" class="form-input" style="padding: 8px 12px;">
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Search & Add Section -->
+                <div class="glass-card full-width">
+                    <div class="search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="exercise-search" placeholder="Search activities (e.g. Running, Yoga, Weight Lifting)...">
+                    </div>
+
+                    <div class="category-tabs" id="category-filters">
+                        <!-- JS will populate -->
+                        <div class="category-tab active" data-cat="all">All Activities</div>
+                    </div>
+
+                    <div id="search-loading" class="text-center py-4 hidden">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                    </div>
+
+                    <div class="item-grid" id="exercise-results">
+                        <!-- Search results will populate here -->
+                    </div>
+                </div>
+
+                <!-- Daily Summary & Log -->
+                <div class="glass-card full-width log-section">
+                    <div class="d-flex justify-between align-center mb-3">
+                        <h2>Today's Workouts</h2>
+                        <div class="d-flex gap-3 text-right">
+                            <div class="text-magenta" style="font-weight: 700; font-size: 1.2rem;">
+                                <span id="total-burned">0</span> kcal burned
+                            </div>
+                            <div class="text-cyan" style="font-weight: 700; font-size: 1.2rem;">
+                                <span id="total-duration">0</span> min active
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="log-table-container">
+                        <table class="log-table">
+                            <thead>
+                                <tr>
+                                    <th>Activity</th>
+                                    <th>Category</th>
+                                    <th>Duration</th>
+                                    <th>Intensity</th>
+                                    <th>Calories Burned</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="exercise-log-body">
+                                <!-- Log entries will populate here -->
+                            </tbody>
+                        </table>
+                        <div id="empty-log" class="empty-state">
+                            <div class="empty-icon">👟</div>
+                            <h3>No exercises logged yet</h3>
+                            <p>Search and add an activity above to start tracking.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div class="mobile-overlay" id="mobile-overlay"></div>
+    </div>
+
+    <!-- Add Exercise Modal -->
+    <div class="modal-overlay" id="add-modal">
+        <div class="modal glass-strong">
+            <div class="modal-header">
+                <h2 id="modal-title">Log Exercise</h2>
+                <button class="modal-close" id="close-modal">✕</button>
+            </div>
+            
+            <form id="add-exercise-form">
+                <div class="mb-3 text-center">
+                    <div id="modal-icon" style="font-size: 3rem; margin-bottom: 8px;">🏃</div>
+                    <strong id="modal-exercise-name" style="font-size: 1.3rem;">Exercise Name</strong>
+                </div>
+
+                <div class="form-row mb-3">
+                    <div class="form-group mb-0">
+                        <label class="form-label">Duration (minutes)</label>
+                        <input type="number" id="modal-duration" class="form-input" value="30" min="1" required>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="form-label">Intensity</label>
+                        <select id="modal-intensity" class="form-select">
+                            <option value="low">Low</option>
+                            <option value="moderate" selected>Moderate</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="glass-card text-center" style="padding: 20px; margin-bottom: 24px; background: rgba(0,0,0,0.2);">
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">Estimated Calories Burned:</div>
+                    <div class="text-magenta" style="font-weight: 800; font-size: 2rem;">
+                        <span id="calc-burn">0</span> <span style="font-size: 1rem;">kcal</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">Based on your current body weight and activity MET value.</div>
+                </div>
+
+                <input type="hidden" id="exercise-data">
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="save-exercise-btn">
+                    Log Workout
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/exercise.js"></script>
+</body>
+</html>

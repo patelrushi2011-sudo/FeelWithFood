@@ -1,0 +1,10 @@
+{
+  "name": "fit-food-root",
+  "version": "1.0.0",
+  "description": "Root package to start the FIT FOOD server",
+  "scripts": {
+    "install": "cd backend && npm install",
+    "dev": "cd backend && npm run dev",
+    "start": "cd backend && npm start"
+  }
+}

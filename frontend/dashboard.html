@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Feel With Food</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <a href="/index.html" class="sidebar-logo" style="text-decoration: none;">
+                <div class="logo-icon">🔥</div>
+                <span>Feel With Food</span>
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/food" class="nav-item">
+                    <span class="nav-icon">🥗</span>
+                    <span>Food Logger</span>
+                </a>
+                <a href="/exercise" class="nav-item">
+                    <span class="nav-icon">🏃‍♂️</span>
+                    <span>Exercise Tracker</span>
+                </a>
+                <a href="/progress" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span>Progress</span>
+                </a>
+                <a href="/profile" class="nav-item">
+                    <span class="nav-icon">👤</span>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-card" onclick="window.location.href='/profile'">
+                    <div class="user-avatar" id="sidebar-avatar">U</div>
+                    <div class="user-info">
+                        <div class="user-name" id="sidebar-name">Loading...</div>
+                        <div class="user-email" id="sidebar-email">...</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+
+            <header class="page-header">
+                <div>
+                    <h1 id="greeting">Hello!</h1>
+                    <p class="header-date" id="current-date">Today's Overview</p>
+                </div>
+                <div class="header-actions">
+                    <a href="/food" class="btn btn-primary btn-sm">+ Log Food</a>
+                </div>
+            </header>
+
+            <!-- Top Summary Row -->
+            <div class="summary-cards">
+                <div class="summary-card glass-card">
+                    <div class="card-icon bg-lime text-lime">🔥</div>
+                    <div class="card-value" id="val-consumed">0</div>
+                    <div class="card-label">Calories Consumed</div>
+                </div>
+                <div class="summary-card glass-card">
+                    <div class="card-icon bg-magenta text-magenta">🏃</div>
+                    <div class="card-value" id="val-burned">0</div>
+                    <div class="card-label">Calories Burned</div>
+                </div>
+                <div class="summary-card glass-card">
+                    <div class="card-icon bg-cyan text-cyan">⚖️</div>
+                    <div class="card-value" id="val-net">0</div>
+                    <div class="card-label">Net Calories</div>
+                </div>
+                <div class="summary-card glass-card">
+                    <div class="card-icon bg-amber text-amber">⏱️</div>
+                    <div class="card-value" id="val-active">0m</div>
+                    <div class="card-label">Active Time</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                
+                <!-- Main Calorie Ring Card -->
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 20px;">Daily Calorie Goal</h3>
+                    <div class="calorie-ring-container">
+                        <div class="calorie-ring">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="ring-bg" cx="50" cy="50" r="40"></circle>
+                                <circle class="ring-progress" cx="50" cy="50" r="40" stroke="url(#gradient)" stroke-dasharray="251.2" stroke-dashoffset="251.2" id="cal-ring"></circle>
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#a3ff12" />
+                                        <stop offset="100%" stop-color="#00f0ff" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="ring-center">
+                                <div class="ring-value" id="ring-val">0</div>
+                                <div class="ring-label">of <span id="ring-goal">2000</span> kcal</div>
+                                <div class="ring-remaining" id="ring-remaining">0 left</div>
+                            </div>
+                        </div>
+
+                        <div style="flex: 1; min-width: 200px;">
+                            <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 12px;">Macronutrients</h4>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-between mb-1" style="font-size: 0.85rem;">
+                                    <span>Protein</span>
+                                    <span class="text-lime"><span id="p-val">0</span> / <span id="p-goal">0</span>g</span>
+                                </div>
+                                <div class="macro-bar">
+                                    <div class="macro-fill bg-lime" id="p-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-between mb-1" style="font-size: 0.85rem;">
+                                    <span>Carbs</span>
+                                    <span class="text-cyan"><span id="c-val">0</span> / <span id="c-goal">0</span>g</span>
+                                </div>
+                                <div class="macro-bar">
+                                    <div class="macro-fill bg-cyan" id="c-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="d-flex justify-between mb-1" style="font-size: 0.85rem;">
+                                    <span>Fat</span>
+                                    <span class="text-magenta"><span id="f-val">0</span> / <span id="f-goal">0</span>g</span>
+                                </div>
+                                <div class="macro-bar">
+                                    <div class="macro-fill bg-magenta" id="f-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side Widgets -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    
+                    <!-- Water Tracker -->
+                    <div class="glass-card water-tracker">
+                        <h3>💧 Daily Hydration</h3>
+                        <div class="water-glasses" id="water-grid">
+                            <!-- JS will populate 8 glasses -->
+                        </div>
+                        <div class="water-info">
+                            You've drank <span id="water-count">0</span> / 8 glasses today
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="glass-card">
+                        <h3 style="margin-bottom: 16px;">Quick Actions</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <a href="/food" class="quick-action">
+                                <div class="action-icon bg-lime text-lime">🥗</div>
+                                <div class="action-text">Add Meal</div>
+                            </a>
+                            <a href="/exercise" class="quick-action">
+                                <div class="action-icon bg-magenta text-magenta">🏃</div>
+                                <div class="action-text">Log Workout</div>
+                            </a>
+                            <a href="/progress" class="quick-action">
+                                <div class="action-icon bg-cyan text-cyan">⚖️</div>
+                                <div class="action-text">Update Weight</div>
+                            </a>
+                            <a href="/food" class="quick-action">
+                                <div class="action-icon bg-amber text-amber">🍎</div>
+                                <div class="action-text">Quick Add</div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 7 Day Trend Chart -->
+                <div class="glass-card full-width chart-container">
+                    <h3>Weekly Calorie Trend <a href="/progress" class="text-lime" style="font-size: 0.8rem; font-weight: normal;">View Full Analytics →</a></h3>
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </main>
+        
+        <div class="mobile-overlay" id="mobile-overlay"></div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

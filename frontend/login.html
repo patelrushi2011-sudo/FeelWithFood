@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In | Feel With Food</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="auth-card glass-card">
+                <div class="auth-header">
+                    <a href="/" class="logo-link">
+                        <div class="logo-icon">🔥</div>
+                        <span>Feel With Food</span>
+                    </a>
+                    <h1>Welcome back</h1>
+                    <p>Enter your details to access your dashboard.</p>
+                </div>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label" for="login-id">Email Address or Phone Number</label>
+                        <input type="text" id="login-id" class="form-input" placeholder="you@example.com or +1234567890" required>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <label class="form-label" for="password" style="margin-bottom: 0;">Password</label>
+                            <a href="/reset-password" style="font-size: 0.85rem; color: var(--accent-magenta); text-decoration: none;">Forgot password?</a>
+                        </div>
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required style="margin-top: 8px;">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="login-btn">
+                        Log In
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="/signup">Sign up for free</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Redirect if already logged in
+        if (localStorage.getItem('token')) {
+            window.location.href = '/dashboard';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const loginId = document.getElementById('login-id').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
+            
+            btn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: loginId, password }) // the backend will parse this as either email or phone
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    window.location.href = '/dashboard';
+                } else {
+                    app.showToast(data.error || 'Login failed', 'error');
+                    btn.innerHTML = 'Log In';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                app.showToast('Network error. Please try again.', 'error');
+                btn.innerHTML = 'Log In';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

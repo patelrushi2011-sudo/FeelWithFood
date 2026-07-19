@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Feel With Food</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <a href="/index.html" class="sidebar-logo" style="text-decoration: none;">
+                <div class="logo-icon">🔥</div>
+                <span>Feel With Food</span>
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/food" class="nav-item">
+                    <span class="nav-icon">🥗</span>
+                    <span>Food Logger</span>
+                </a>
+                <a href="/exercise" class="nav-item">
+                    <span class="nav-icon">🏃‍♂️</span>
+                    <span>Exercise Tracker</span>
+                </a>
+                <a href="/progress" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span>Progress</span>
+                </a>
+                <a href="/profile" class="nav-item active">
+                    <span class="nav-icon">👤</span>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar" id="sidebar-avatar">U</div>
+                    <div class="user-info">
+                        <div class="user-name" id="sidebar-name">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+
+            <header class="page-header">
+                <div>
+                    <h1>Account Settings</h1>
+                    <p class="header-date">Manage your profile and goals</p>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                
+                <div class="glass-card full-width profile-header">
+                    <div class="profile-avatar-container" style="position: relative; cursor: pointer; width: fit-content;" onclick="document.getElementById('avatar-upload').click()">
+                        <div class="profile-avatar" id="main-avatar" style="background: #a3ff12; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;">U</div>
+                        <div class="edit-avatar-icon" style="position: absolute; bottom: 0; right: 0; background: var(--bg-secondary); border-radius: 50%; padding: 4px; box-shadow: var(--shadow-sm); font-size: 14px; line-height: 1; border: 2px solid var(--bg-card);">✏️</div>
+                        <input type="file" id="avatar-upload" accept="image/*" style="display: none;" onchange="previewAvatar(event)">
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profile-name">Loading...</h2>
+                        <p id="profile-email">loading@example.com</p>
+                        <div class="member-since" id="member-since">Member since: </div>
+                    </div>
+                    <div style="margin-left: auto; text-align: right;">
+                        <div class="text-muted" style="font-size: 0.85rem;">Daily Calorie Goal</div>
+                        <div class="text-lime" style="font-size: 2rem; font-weight: 800;"><span id="profile-goal-cal">0</span> <span style="font-size: 1rem;">kcal</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-card profile-section">
+                    <h3>👤 Personal Details & Body Metrics</h3>
+                    
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name</label>
+                            <input type="text" id="name" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="age">Age</label>
+                                <input type="number" id="age" class="form-input" min="12" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="gender">Gender</label>
+                                <select id="gender" class="form-select" required>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="height">Height (cm)</label>
+                                <input type="number" id="height" class="form-input" min="100" max="250" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="weight">Weight (kg)</label>
+                                <input type="number" id="weight" class="form-input" min="30" max="300" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="activity_level">Activity Level</label>
+                            <select id="activity_level" class="form-select" required>
+                                <option value="sedentary">Sedentary (Little or no exercise)</option>
+                                <option value="light">Light (Exercise 1-3 days/week)</option>
+                                <option value="moderate">Moderate (Exercise 3-5 days/week)</option>
+                                <option value="active">Active (Exercise 6-7 days/week)</option>
+                                <option value="very_active">Very Active (Hard exercise daily)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="goal">Fitness Goal</label>
+                            <select id="goal" class="form-select" required>
+                                <option value="lose">Lose Weight</option>
+                                <option value="maintain">Maintain Weight</option>
+                                <option value="gain">Build Muscle / Gain Weight</option>
+                            </select>
+                            <p class="text-muted mt-1" style="font-size: 0.8rem;">Note: Changing metrics or goals will automatically recalculate your daily calorie target.</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="save-profile-btn" style="width: 100%; margin-top: 10px;">Save Changes</button>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="glass-card profile-section">
+                        <h3>🔒 Security</h3>
+                        <form id="password-form">
+                            <div class="form-group">
+                                <label class="form-label" for="current-pwd">Current Password</label>
+                                <input type="password" id="current-pwd" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="new-pwd">New Password</label>
+                                <input type="password" id="new-pwd" class="form-input" minlength="6" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="confirm-pwd">Confirm New Password</label>
+                                <input type="password" id="confirm-pwd" class="form-input" minlength="6" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-secondary" id="save-pwd-btn" style="width: 100%;">Change Password</button>
+                        </form>
+                    </div>
+
+                    <div class="glass-card profile-section" style="border-color: rgba(255, 45, 123, 0.3);">
+                        <h3 class="text-magenta">⚠️ Account Actions</h3>
+                        <p class="text-muted mb-3" style="font-size: 0.9rem;">You can safely log out of your account here. To delete your account, please contact support.</p>
+                        <button class="btn btn-danger logout-btn" id="logout-btn">Log Out</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <div class="mobile-overlay" id="mobile-overlay"></div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/profile.js"></script>
+    <script>
+        function previewAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatarDiv = document.getElementById('main-avatar');
+                    avatarDiv.innerHTML = `<img src="${e.target.result}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    avatarDiv.style.background = 'transparent';
+                    const formData = new FormData();
+                    formData.append('avatar', file);
+                    const token = localStorage.getItem('token');
+                    
+                    fetch('/users/avatar', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.error === false) {
+                            app.showToast('Avatar updated successfully!', 'success');
+                            const userObj = JSON.parse(localStorage.getItem('user') || '{}');
+                            userObj.avatarUrl = data.avatarUrl;
+                            localStorage.setItem('user', JSON.stringify(userObj));
+                        } else {
+                            app.showToast(data.message || 'Failed to upload avatar', 'error');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Upload error:', err);
+                        app.showToast('Failed to upload avatar. Please try again.', 'error');
+                    });
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>

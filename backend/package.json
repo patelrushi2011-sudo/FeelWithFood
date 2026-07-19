@@ -1,0 +1,38 @@
+{
+  "name": "fit-food",
+  "version": "1.0.0",
+  "description": "FIT FOOD — India's Most Innovative Calorie & Fitness Tracker",
+  "keywords": [
+    "my",
+    "first",
+    "app"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "my first app"
+  },
+  "license": "MIT",
+  "author": "Rushi Patel <patelrushi2011@gmail.com>",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.7",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.0",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.3",
+    "zod": "^4.4.3"
+  }
+}
