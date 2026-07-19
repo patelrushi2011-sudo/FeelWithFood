@@ -66,7 +66,7 @@
             btn.disabled = true;
 
             try {
-                const response = await fetch('/api/auth/login', {
+                const response = await fetch('https://feelwithfood.onrender.com/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: loginId, password }) // the backend will parse this as either email or phone

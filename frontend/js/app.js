@@ -1,6 +1,9 @@
 // FIT FOOD — Core Application Logic
 // Handles authentication, API requests, toasts, and UI interactions
 
+// Live backend URL
+const BASE_URL = 'https://feelwithfood.onrender.com';
+
 const app = {
     // Check if user is logged in
     checkAuth() {
@@ -32,7 +35,7 @@ const app = {
         };
 
         try {
-            const response = await fetch(endpoint, config);
+            const response = await fetch(BASE_URL + endpoint, config);
             
             // Handle unauthorized or forbidden (token expired/invalid)
             if (response.status === 401 || response.status === 403) {
