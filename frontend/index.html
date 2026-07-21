@@ -15,7 +15,7 @@
                 <span>Feel With Food</span>
             </a>
             
-            <div class="nav-links">
+            <div class="nav-links" id="navLinks">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How it Works</a>
                 <a href="#testimonials">Testimonials</a>
@@ -25,8 +25,36 @@
                 <a href="/login" class="btn btn-ghost">Log In</a>
                 <a href="/signup" class="btn btn-primary">Start for Free</a>
             </div>
+
+            <!-- Hamburger Button (mobile only) -->
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+        <div class="mobile-nav-header">
+            <a href="/" class="nav-logo">
+                <div class="logo-icon">🔥</div>
+                <span>Feel With Food</span>
+            </a>
+            <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
+        </div>
+        <nav class="mobile-nav-links">
+            <a href="#features" class="mobile-nav-link">Features</a>
+            <a href="#how-it-works" class="mobile-nav-link">How it Works</a>
+            <a href="#testimonials" class="mobile-nav-link">Testimonials</a>
+        </nav>
+        <div class="mobile-nav-actions">
+            <a href="/login" class="btn btn-secondary" style="width:100%;justify-content:center;">Log In</a>
+            <a href="/signup" class="btn btn-primary" style="width:100%;justify-content:center;">Start for Free</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <header class="hero">
@@ -204,6 +232,37 @@
             } else {
                 navbar.classList.remove('scrolled');
             }
+        });
+
+        // Mobile hamburger menu
+        const hamburger = document.getElementById('navHamburger');
+        const drawer = document.getElementById('mobileNavDrawer');
+        const overlay = document.getElementById('mobileNavOverlay');
+        const closeBtn = document.getElementById('mobileNavClose');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            overlay.classList.add('show');
+            hamburger.setAttribute('aria-expanded', 'true');
+            hamburger.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            overlay.classList.remove('show');
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        // Close drawer when a link is clicked
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', closeDrawer);
         });
 
         // Redirect to dashboard if already logged in
