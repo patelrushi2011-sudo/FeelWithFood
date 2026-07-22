@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         cP: document.getElementById('calc-p'),
         cC: document.getElementById('calc-c'),
         cF: document.getElementById('calc-f'),
-        saveBtn: document.getElementById('save-food-btn')
+        saveBtn: document.getElementById('save-food-btn'),
+        resetLogBtn: document.getElementById('reset-log-btn')
     };
 
     let selectedMealType = 'snack';
@@ -57,6 +58,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Event Listeners
+    if (els.resetLogBtn) {
+        els.resetLogBtn.addEventListener('click', async () => {
+            if (confirm('Are you sure you want to reset all food logs for today?')) {
+                try {
+                    await app.api(`/api/foods/log/reset?date=${currentDate}`, { method: 'DELETE' });
+                    app.showToast('Daily food log reset successfully!', 'success');
+                    await loadFoodLog();
+                } catch (e) {
+                    app.showToast('Failed to reset food log', 'error');
+                }
+            }
+        });
+    }
+
     els.datePicker.addEventListener('change', (e) => {
         currentDate = e.target.value;
         loadFoodLog();

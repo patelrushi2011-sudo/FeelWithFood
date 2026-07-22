@@ -10,48 +10,47 @@
 /* ── CSS Variables / Design Tokens ── */
 :root {
   /* Backgrounds */
-  --bg-primary: #ffffff;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #ffffff;
-  --bg-glass: #ffffff;
-  --bg-glass-strong: #ffffff;
-  --bg-input: #ffffff;
-  --bg-input-focus: #ffffff;
+  --bg-primary: #0B0B0B;
+  --bg-secondary: #121212;
+  --bg-card: rgba(20, 20, 20, 0.6);
+  --bg-card-hover: rgba(28, 28, 28, 0.7);
+  --bg-glass: rgba(20, 20, 20, 0.45);
+  --bg-glass-strong: rgba(25, 25, 25, 0.85);
+  --bg-input: rgba(30, 30, 30, 0.5);
+  --bg-input-focus: rgba(40, 40, 40, 0.7);
 
   /* Accent Colors */
-  --accent-lime: #a3ff12;
+  --accent-lime: #FF3B3B; /* Red primary */
   --accent-cyan: #00f0ff;
   --accent-magenta: #ff2d7b;
   --accent-violet: #8b5cf6;
   --accent-amber: #f59e0b;
   --accent-emerald: #10b981;
-  --accent-rose: #f472b6;
+  --accent-rose: #FF3B3B;
   --accent-sky: #06b6d4;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #a3ff12, #00f0ff);
-  --gradient-hot: linear-gradient(135deg, #ff2d7b, #f59e0b);
+  --gradient-primary: linear-gradient(135deg, #FF3B3B, #ff6b6b);
+  --gradient-hot: linear-gradient(135deg, #FF3B3B, #f59e0b);
   --gradient-cool: linear-gradient(135deg, #00f0ff, #8b5cf6);
-  --gradient-hero: #ffffff;
-  --gradient-card: #ffffff;
+  --gradient-hero: linear-gradient(180deg, #121212, #0B0B0B);
+  --gradient-card: linear-gradient(135deg, rgba(30,30,30,0.5), rgba(15,15,15,0.5));
 
   /* Text */
-  --text-primary: #000000;
-  --text-secondary: #000000;
-  --text-muted: #000000;
-  --text-accent: #8bc34a;
-  /* Adjusted slightly for better contrast on white */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.4);
+  --text-accent: #FF3B3B;
 
   /* Borders */
-  --border-glass: rgba(0, 0, 0, 0.08);
-  --border-glow: rgba(163, 255, 18, 0.3);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(255, 59, 59, 0.3);
 
   /* Shadows & Glows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 64px rgba(0, 0, 0, 0.5);
-  --glow-lime: 0 0 20px rgba(163, 255, 18, 0.15);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.8);
+  --shadow-lg: 0 16px 64px rgba(0, 0, 0, 0.95);
+  --glow-lime: 0 0 20px rgba(255, 59, 59, 0.15);
   --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.15);
   --glow-magenta: 0 0 20px rgba(255, 45, 123, 0.15);
 
@@ -79,8 +78,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: #000000 !important;
-  -webkit-text-fill-color: #000000 !important;
 }
 
 html {
@@ -128,6 +125,8 @@ textarea {
   font-family: inherit;
   border: none;
   outline: none;
+  color: var(--text-primary);
+  background: var(--bg-input);
 }
 
 /* ── Scrollbar ── */

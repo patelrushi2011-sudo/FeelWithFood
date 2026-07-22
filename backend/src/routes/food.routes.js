@@ -12,6 +12,7 @@ router.use(authMiddleware);
 
 router.post('/log', foodController.logFood);
 router.get('/log', foodController.getFoodLog);
+router.delete('/log/reset', foodController.resetFoodLog);
 router.delete('/log/:id', foodController.deleteFoodLog);
 router.get('/summary', foodController.getSummary);
 

@@ -36,8 +36,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await app.api('/api/auth/me');
             
             // Header
-            els.mainAvatar.innerText = data.name.charAt(0).toUpperCase();
-            els.mainAvatar.style.background = data.avatar_color || '#a3ff12';
+            if (data.avatarUrl) {
+                const fullAvatarUrl = data.avatarUrl.startsWith('http') ? data.avatarUrl : (BASE_URL + data.avatarUrl);
+                els.mainAvatar.innerHTML = `<img src="${fullAvatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">`;
+                els.mainAvatar.style.background = 'transparent';
+            } else {
+                els.mainAvatar.innerText = data.name.charAt(0).toUpperCase();
+                els.mainAvatar.style.background = data.avatar_color || '#a3ff12';
+            }
             els.profileName.innerText = data.name;
             els.profileEmail.innerText = data.email;
             

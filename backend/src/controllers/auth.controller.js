@@ -40,7 +40,8 @@ const login = async (req, res) => {
             name: user.name,
             email: user.email,
             daily_calorie_goal: user.dailyCalorieGoal || 2000,
-            avatar_color: user.avatarUrl || '#a3ff12'
+            avatarUrl: user.avatarUrl,
+            avatar_color: user.avatarUrl ? 'transparent' : (user.avatarColor || '#a3ff12')
         }
     });
 };
@@ -101,7 +102,8 @@ const register = async (req, res) => {
             name: newUser.name,
             email: newUser.email,
             daily_calorie_goal: newUser.dailyCalorieGoal || 2000,
-            avatar_color: newUser.avatarUrl || '#a3ff12'
+            avatarUrl: newUser.avatarUrl,
+            avatar_color: newUser.avatarUrl ? 'transparent' : (newUser.avatarColor || '#a3ff12')
         }
     });
 };
@@ -183,6 +185,8 @@ const getMe = async (req, res) => {
         activity_level: user.activityLevel,
         goal: 'maintain', // dummy mapping
         daily_calorie_goal: user.dailyCalorieGoal || 2000,
+        avatarUrl: user.avatarUrl,
+        avatar_color: user.avatarUrl ? 'transparent' : (user.avatarColor || '#a3ff12'),
         created_at: user.createdAt
     });
 };

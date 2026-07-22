@@ -73,6 +73,34 @@ exports.deleteFoodLog = async (req, res) => {
     res.json({ message: 'Deleted' });
 };
 
+exports.resetFoodLog = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { date } = req.query;
+        const targetDate = date ? new Date(date) : new Date();
+        targetDate.setHours(0, 0, 0, 0);
+        const nextDay = new Date(targetDate);
+        nextDay.setDate(nextDay.getDate() + 1);
+
+        const { error } = await supabase
+            .from('MealLog')
+            .delete()
+            .eq('userId', userId)
+            .gte('date', targetDate.toISOString())
+            .lt('date', nextDay.toISOString());
+
+        if (error) {
+            console.error('Supabase Error resetting log:', error);
+            return res.status(500).json({ error: true, message: 'Failed to reset log' });
+        }
+
+        res.json({ success: true, message: 'All logs for the day have been cleared' });
+    } catch (err) {
+        console.error('Error resetting food log:', err);
+        res.status(500).json({ error: true, message: 'Failed to reset log' });
+    }
+};
+
 exports.getCategories = async (req, res) => {
     const foodsData = require('../../data/foods');
     const categories = [...new Set(foodsData.map(f => f.category))];

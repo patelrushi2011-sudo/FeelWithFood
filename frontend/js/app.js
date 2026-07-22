@@ -95,8 +95,14 @@ const app = {
             const email = document.getElementById('sidebar-email');
 
             if (avatar) {
-                avatar.innerText = user.name.charAt(0).toUpperCase();
-                avatar.style.background = user.avatar_color || '#a3ff12';
+                if (user.avatarUrl) {
+                    const fullAvatarUrl = user.avatarUrl.startsWith('http') ? user.avatarUrl : (BASE_URL + user.avatarUrl);
+                    avatar.innerHTML = `<img src="${fullAvatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    avatar.style.background = 'transparent';
+                } else {
+                    avatar.innerText = user.name.charAt(0).toUpperCase();
+                    avatar.style.background = user.avatar_color || '#a3ff12';
+                }
             }
             if (name) name.innerText = user.name;
             if (email) email.innerText = user.email;

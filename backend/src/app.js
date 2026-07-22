@@ -9,7 +9,14 @@ const userRoutes = require('./routes/user.routes');
 
 const app = express();
 
-app.use(cors({ origin: '*', credentials: true }));
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    callback(null, true); // Echo the origin
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 // Serve static frontend
