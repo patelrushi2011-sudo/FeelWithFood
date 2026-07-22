@@ -38,9 +38,9 @@
 
   /* Text */
   --text-primary: #000000;
-  --text-secondary: rgba(0, 0, 0, 0.7);
-  --text-muted: rgba(0, 0, 0, 0.55);
-  --text-accent: #FF3B3B;
+  --text-secondary: #000000;
+  --text-muted: #000000;
+  --text-accent: #000000;
 
   /* Borders */
   --border-glass: rgba(0, 0, 0, 0.08);
@@ -2774,4 +2774,8 @@ textarea {
 
 .visible {
   display: block !important;
+}
+/* Force all text to black */
+body, p, h1, h2, h3, h4, h5, h6, a, span, div, li, td, th, button, input, select, textarea, label {
+    color: #000000 !important;
 }
